@@ -8,8 +8,8 @@ public enum Languages {
     FRENCH("fr", "French"),
     CZECH("cs", "Czech");
 
-    private String langCode;
-    private String langName;
+    private final String langCode;
+    private final String langName;
 
     Languages(String langCode, String langName) {
         this.langCode = langCode;

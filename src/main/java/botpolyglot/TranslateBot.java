@@ -1,5 +1,6 @@
 package botpolyglot;
 
+import botpolyglot.translate.TranslationService;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -7,7 +8,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.org.botpolyglot.translate.TranslationService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,8 +17,8 @@ import java.util.Map;
 
 public class TranslateBot extends TelegramLongPollingBot {
 
-    private TranslationService translationService;
-    private Map<Long, Languages> map;
+    private final TranslationService translationService;
+    private final Map<Long, Languages> map;
 
     public TranslateBot(TranslationService translationService) {
         this.translationService = translationService;
@@ -41,8 +41,8 @@ public class TranslateBot extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasEntities()) {
             for (var command : update.getMessage().getEntities()) {
                 String textCmd = command.getText();
-                switch (textCmd) {
-                    case "/start": sendChoiceLanguage(update);
+                if ("/start".equals(textCmd)) {
+                    sendChoiceLanguage(update);
                 }
             }
         }

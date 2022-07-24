@@ -1,10 +1,10 @@
 package botpolyglot;
 
+import botpolyglot.translate.TranslationService;
+import botpolyglot.translate.YandexTranslate;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import ru.org.botpolyglot.translate.TranslationService;
-import ru.org.botpolyglot.translate.YandexTranslate;
 
 public class Main {
     public static void main(String[] args) {

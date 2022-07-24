@@ -1,7 +1,7 @@
 package botpolyglot.translate;
 
+import botpolyglot.AppProp;
 import com.google.gson.Gson;
-import ru.org.botpolyglot.AppProp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class YandexTranslate implements TranslationService {
@@ -39,12 +40,12 @@ public class YandexTranslate implements TranslationService {
         String jsonInputString = g.toJson(req);
 
         try(OutputStream os = con.getOutputStream()) {
-            byte[] input = jsonInputString.getBytes("utf-8");
+            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
         }
 
         //post
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
             String responseLine;
             while ((responseLine = br.readLine()) != null) {
@@ -61,15 +62,15 @@ public class YandexTranslate implements TranslationService {
         return resultStr;
     }
 
-    private class Response{
+    private static class Response{
         public List<Translation> translations;
     }
 
-    private class Translation{
+    private static class Translation{
         public String text;
     }
 
-    private class Request{
+    private static class Request{
         String targetLanguageCode;
         String folderId;
         String[] texts;
